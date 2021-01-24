@@ -21,6 +21,8 @@ class Redactor:
 
         # email regex
         EMAIL_REG = r"([\w\.\d]+\@[\w\d]+\.[\w\d]+)"
+        # WEBSITE_URL_REG = r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
+        WEBSITE_URL_REG = r"([\w\d]+\.[\w\d]+\.[\w\d]+)"
         PHONE = '([(]?\+84[)]?[ ]*\d{1,3}|0\d{2,4})[ ]?(-|\.)?[ ]?\d{3,4}[ ]?(-|\.)?[ ]?\d{3,4}'
         for line in lines:
 
@@ -35,6 +37,14 @@ class Redactor:
                 yield search.group(1)
             if re.search(PHONE, line, re.IGNORECASE):
                 search = re.search(PHONE, line, re.IGNORECASE)
+
+                # yields creates a generator
+                # generator is used to return
+                # values in between function iterations
+                print(search.group())
+                yield search.group()
+            if re.search(WEBSITE_URL_REG, line, re.IGNORECASE):
+                search = re.search(WEBSITE_URL_REG, line, re.IGNORECASE)
 
                 # yields creates a generator
                 # generator is used to return
